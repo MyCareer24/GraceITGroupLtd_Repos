@@ -1,8 +1,8 @@
 #Grace IT Group VPC Networking
 resource "aws_vpc" "GraceITGroup-VPC" {
-  cidr_block       = "10.16.0.0/16"
-  instance_tenancy = "default"
-  enable_dns_hostnames = true
+  cidr_block       = var.Vpc_Cidr
+  instance_tenancy = var.Vpc_Instance_Tenancy
+  enable_dns_hostnames = var.Vpc_Enable_Dns_Hostnames
 
 
   tags = {
@@ -15,8 +15,8 @@ resource "aws_vpc" "GraceITGroup-VPC" {
 #PUBLIC SUBNET
 resource "aws_subnet" "GracePubSub1" {
   vpc_id     = aws_vpc.GraceITGroup-VPC.id
-  cidr_block = "10.16.16.0/20"
-  availability_zone = "eu-west-2a"
+  cidr_block = var.GracePubSub1_Cidr
+  availability_zone = var.GracePubSub1_AvailZone
 
   tags = {
     Name = "GracePubSub1"
@@ -38,9 +38,9 @@ resource "aws_subnet" "GracePubSub2" {
 #GRACE IT PRIVATE SUBNET
 resource "aws_subnet" "GracePrivSub1" {
   vpc_id     = aws_vpc.GraceITGroup-VPC.id
-  cidr_block = "10.16.12.0/24"
-  availability_zone = "eu-west-2c"
-
+  cidr_block = var.GracePrvSub1_Cidr
+  availability_zone = var.GracePrvSub1_AvailZone
+  
   tags = {
     Name = "GracePrivSub1"
     Env = "Prod"
@@ -49,8 +49,8 @@ resource "aws_subnet" "GracePrivSub1" {
 
 resource "aws_subnet" "GracePrivSub2" {
   vpc_id     = aws_vpc.GraceITGroup-VPC.id
-  cidr_block = "10.16.14.0/26"
-  availability_zone = "eu-west-2c"
+  cidr_block = var.GracePrvSub2_Cidr
+  availability_zone = var.GracePrvSub2_AvailZone
 
   tags = {
     Name = "GracePrivSub2"
@@ -63,7 +63,7 @@ resource "aws_route_table" "GraceIT-Pub-RT" {
   vpc_id = aws_vpc.GraceITGroup-VPC.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.GraceIT-Pub-RT_Cidr
     gateway_id = aws_internet_gateway.GraceIT-IGW.id
   }
 
@@ -77,7 +77,7 @@ resource "aws_route_table" "GraceIT-Priv-RT" {
   vpc_id = aws_vpc.GraceITGroup-VPC.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.GraceIT-Priv-RT_Cidr
     nat_gateway_id = aws_nat_gateway.Grace-NG.id
   }
   tags = {
