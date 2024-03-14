@@ -22,7 +22,7 @@ variable "Vpc_Instance_Tenancy" {
 
 #VPC enable_dns_hostname Variable
 variable "Vpc_Enable_Dns_Hostnames" {
-    type = boolean
+    type = bool
     description = "Make Vpc_Enable_Dns_Hostnames a variable"
     default = true
 }
