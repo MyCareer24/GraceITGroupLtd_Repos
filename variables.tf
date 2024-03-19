@@ -6,6 +6,12 @@ variable "Region_name" {
     default = "eu-west-2"
 }
 
+#variable "enable_public_ip" {
+    #description = "Enable Public IP Address"
+    #type = bool
+    #default = true
+#}
+
 #VPC CIDR Variable
 variable "Vpc_Cidr" {
     type = string
