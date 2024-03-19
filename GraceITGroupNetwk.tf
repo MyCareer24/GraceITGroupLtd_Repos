@@ -3,8 +3,7 @@ resource "aws_vpc" "GraceITGroup-VPC" {
   cidr_block       = var.Vpc_Cidr
   instance_tenancy = var.Vpc_Instance_Tenancy
   enable_dns_hostnames = var.Vpc_Enable_Dns_Hostnames
-
-
+  
   tags = {
     Name = "GraceITGroup-VPC"
     Env = "Prod"
